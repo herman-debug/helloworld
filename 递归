@@ -1,0 +1,68 @@
+    public static void main(String[] args) {
+        int[] a = {1,3,2,4,2};
+        int L = 0;
+        int R = a.length - 1;
+        System.out.println(process(a, L, R));
+    }
+
+    //进行递归
+    public static int process(int[] a, int L, int R) {
+        //分而治之，分为单个元素时停止
+        if (L == R) {
+            return 0;
+        }
+        //位运算取中间值
+        int M = L + ((R - L) >> 1);
+        return process(a, L, M) + process(a, M + 1, R) + Merge(a, L, M, R);
+    }
+
+    // 将两个数组排序
+    public static int Merge(int[] a, int L, int M, int R) {
+        int[] help = new int[R - L + 1];
+        int P1=L;
+        int P = M + 1;
+        int i = 0;
+        //用res来存储每一个数组的小和
+        int res = 0;
+        //三个while来计算每个数组的小和，并对数组排序
+        while (P1 <= M && P <= R) {
+            res += a[P1] < a[P] ? (R - P + 1) * a[P1] : 0;
+            // 按顺序将元素放入help数组中
+            help[i++] = a[P1] < a[P] ? a[P1++] : a[P++];
+        }
+        while (P1<= M) {
+            help[i++] = a[P1++];
+        }
+        while (P <= R) {
+            help[i++] = a[P++];
+        }
+        // 得到有序新数组
+        for (i=0;i<help.length;i++) {
+            a[L+i]=help[i];
+        }
+        return res;
+    }
+    
+    
+    public static void main(String[] args) {
+        int[] a = {1,3,2,4,2,5};
+        int L = 0;
+        int R = a.length - 1;
+        System.out.println(minSum(a));
+    }
+    public static int minSum(int[] a) {
+        if (a==null ||a.length<2) {
+            return 0;
+        } else {
+            int sum=0;
+            for (int i=0;i<a.length-1;i++) {
+                for (int j=i+1;j<a.length;j++) {
+                    if (a[i]<a[j]) {
+                        sum+=a[i];
+                    }
+                }
+            }
+            return sum;
+        }
+
+    }

@@ -1,0 +1,33 @@
+public class minRight {
+    public static void main(String[] args) {
+        int[] arr={2,5,6,3,2,5,3,4,5,2};
+        int number=3;
+        method(arr,number);
+    }
+    public static void method(int[] arr,int number) {
+        int i=0;  // i用来代表元素位置
+        int j=0;   // j代表左区域位置
+        int k=arr.length-1;  // k代表右区域位置
+        while (i<=k) {
+            if (arr[i]<number) {
+                swap(arr,j,i);
+                i++;
+                j++;
+            } else if (arr[i]==number) {
+                i++;
+            } else {
+                swap(arr,i,k);
+                k--;
+            }
+
+        }
+        for (int x=0;x<arr.length;x++) {
+            System.out.println(arr[x]);
+        }
+
+    }
+    public static void swap(int []arr,int m,int n) {
+        int temp = arr[m];
+        arr[m]=arr[n];
+        arr[n]=temp;
+    }

@@ -1,0 +1,32 @@
+// heapify算法，当大根堆中的一个元素发生变化后仍然让它变成大根堆的操作如下
+public class dui {
+    public static void main(String[] args) {
+        int[] arr={8,7,7,6,5,5,3};
+        int heapsize=arr.length;
+        int index=2;
+        arr[index]=3;
+        heapify(arr,heapsize,index);
+
+    }
+    public static void heapify(int[] arr,int heapsize,int index) {
+        int light=2*index+1;
+        while(light<heapsize) {
+            int largest=light+1<heapsize && arr[light+1]>arr[light] ? light+1:light;
+            largest=arr[largest]>arr[index]?largest:index;
+            if (largest==index) {
+                break;
+            }
+            swap(arr,index,largest);
+            index=largest;
+            light=2*index+1;
+        }
+        for (int i=0;i<heapsize;i++) {
+            System.out.println(arr[i]);
+        }
+    }
+    public static void swap(int[] arr,int index,int largest) {
+        int temp=arr[index];
+        arr[index]=arr[largest];
+        arr[largest]=temp;
+    }
+}

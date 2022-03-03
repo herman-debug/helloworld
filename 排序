@@ -1,0 +1,66 @@
+import static AlgorithmsSort.someMethod.print;
+import static AlgorithmsSort.someMethod.swap;
+
+//选择排序
+时间复杂度O（n^2）空间复杂度O(1) 不具有稳定性
+public class Selection {
+    public static void main(String[] args) {
+        int[] arr={3,5,6,4,3,6,2,10,8};
+        sort(arr);
+    }
+    public static void sort(int[] arr) {
+        int n=arr.length;
+        for (int i=0;i<n;i++) {
+            int num=i;
+            for(int j=i+1;j<n;j++) {
+                num=arr[j]<arr[num]?j:num;
+                swap(arr,num,i);
+            }
+        }
+        print(arr);
+
+    }
+}
+归并排序
+时间复杂度O（nlogn）空间复杂度O(n) 具有稳定性
+import static AlgorithmsSort.someMethod.print;
+
+public class Merge {
+    public static void main(String[] args) {
+        int arr[]={2,5,6,4,7,3,8,3,7};
+        int l=0;
+        int r=arr.length-1;
+        process(arr,l,r);
+        print(arr);
+
+    }
+    //分治策略进行递归
+    public static void process(int[] arr,int l,int r) {
+        int mid=l+((r-l)>>1);
+        if (l==r) {
+            return;
+        }
+        process(arr,l,mid);
+        process(arr,mid+1,r);
+        merge(arr,l,mid,r);
+    }
+    public static void merge(int[] arr, int l,int mid,int r) {
+        int[] a=new int[r-l+1];
+        int ll=l;
+        int lm=mid+1;
+        int i=0;
+        while(l<=mid && lm<=r) {
+            a[i++]=arr[l]<=arr[lm]?arr[l++]:arr[lm++];
+        }
+        while (l<=mid) {
+            a[i++]=arr[l++];
+        }
+        while (lm<=r) {
+            a[i++]=arr[lm++];
+        }
+        for (int j=0;j<a.length;j++) {
+            arr[ll++]=a[j];
+        }
+
+    }
+}
